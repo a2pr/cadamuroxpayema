@@ -10,3 +10,9 @@ Only humans can make commits/merge/push to repository, fetch and read are permit
 ## Deployment 
 Only humans can make deployment using firebase. By no means firebase commands should be use, only read
 
+## Plans
+ALl plans and designs  should be save at /design folder with name as *-{date}.md in markdown format
+If implement then implementation result should be added into the file
+
+## Browser interaction
+For any browser interaction use playwright-cli instead of claude-chrome plugin
