@@ -74,3 +74,18 @@ export const invitation = {
 }
 ```
 Isso garante que trocar textos/links/valores/foto não exija tocar em nenhum componente — só o config.
+
+## Implementação
+
+Implementado em cima do scaffolding compartilhado (`design/scaffolding-2026-08-13.md`):
+
+- **`src/components/HeroPhotoOverlay.vue`** — `<section class="vh-100 position-relative overflow-hidden">` com `<img>` full-bleed (`position-absolute w-100 h-100 object-fit: cover`), overlay (`var(--color-a-overlay)`) e conteúdo (`position-absolute` + flex column, centralizado, `pt-5`) sobrepostos diretamente na foto, sem cartão. Título em `var(--font-script-a)` branco com `text-shadow` escuro para legibilidade; detalhes em `var(--font-detail-a)` itálico bordô com leve `text-shadow` claro, já que o overlay sozinho (`rgba(0,0,0,0.25)`) não garante contraste suficiente para texto bordô sobre fotos claras.
+- **`src/components/PlatePriceModal.vue`** — botão dourado (`var(--color-a-accent)`) com `data-bs-toggle="modal"` que abre um `.modal` do Bootstrap mostrando o texto "O valor médio por pessoa é de {preço}." com `formatPlatePrice(invitation.platePrice)`.
+- **`src/components/BottomBand.vue`** — faixa com fundo `var(--color-a-band-bg)`, recebe os botões via slot nomeado `#buttons` (`d-grid gap-2 d-md-flex justify-content-md-center`) e renderiza `AppFooter` (compartilhado) dentro do mesmo container, herdando a cor de texto do band via `currentColor`.
+- **`src/App.vue`** — compõe `HeroPhotoOverlay` + `BottomBand` (com `LocationButton` e `PlatePriceModal` no slot de botões), todos os textos/links vindos de `invitation` (`src/config/invitation.ts`). `LocationButton` recebe `class="btn-outline-light"` via fallthrough, conforme especificado no design.
+- **`index.html`** — `<link>` de fontes reduzido para as 3 famílias da Opção A (Sacramento, Playfair Display, Jost), removendo as fontes das opções B/C que não serão usadas.
+- Não foi usado `CoupleFigureImage.vue` (componente compartilhado) no hero — ele usa `class="img-fluid"` (`max-width:100%; height:auto`), incompatível com o `position-absolute w-100 h-100 object-fit:cover` necessário para a foto full-bleed. O `<img>` é renderizado diretamente dentro de `HeroPhotoOverlay`.
+
+### Verificação
+- `npm run type-check` — sem erros
+- `npm run dev` + `playwright-cli`, viewport mobile (390×844) e desktop (1440×900): hero full-bleed com título/detalhes sobrepostos renderiza corretamente em ambos; faixa de botões empilha no mobile e fica lado a lado no desktop; modal do valor do prato abre ao clicar em "Valor do Prato" e mostra "O valor médio por pessoa é de R$ 0,00."; console sem erros (só o warning pré-existente do vue-router por não haver rotas, já registrado no scaffolding, sem relação com esta mudança).
