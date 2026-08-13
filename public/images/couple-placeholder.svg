@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1350" role="img" aria-label="Foto do casal (placeholder)">
+  <rect width="1080" height="1350" fill="#EFE7DA" />
+  <circle cx="540" cy="580" r="420" fill="#F3EDE2" stroke="#C9A66B" stroke-width="4" />
+  <g fill="#C9BBA0">
+    <circle cx="460" cy="500" r="120" />
+    <path d="M460 640c-120 0-215 80-215 200v55h430v-55c0-120-95-200-215-200z" />
+    <circle cx="640" cy="500" r="120" />
+    <path d="M640 640c-120 0-215 80-215 200v55h430v-55c0-120-95-200-215-200z" />
+  </g>
+  <text x="540" y="1000" text-anchor="middle" font-family="Georgia, serif" font-size="36" fill="#8A8378" letter-spacing="3">
+    FOTO DO CASAL
+  </text>
+</svg>

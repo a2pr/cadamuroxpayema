@@ -1,0 +1,47 @@
+:root {
+  /* Fonts shared across the 3 design options (design/option-*-2026-08-13.md) */
+  --font-script-a: 'Sacramento', cursive;
+  --font-detail-a: 'Playfair Display', serif;
+  --font-body-a: 'Jost', 'Segoe UI', sans-serif;
+
+  --font-script-b: 'Parisienne', cursive;
+  --font-detail-b: 'Cormorant', serif;
+  --font-body-b: 'Poppins', 'Segoe UI', sans-serif;
+
+  --font-script-c: 'Great Vibes', cursive;
+  --font-detail-c: 'EB Garamond', serif;
+  --font-body-c: 'Nunito Sans', 'Segoe UI', sans-serif;
+
+  /* Palette — Option A: Foto Cheia Romântica */
+  --color-a-overlay: rgba(0, 0, 0, 0.25);
+  --color-a-title: #ffffff;
+  --color-a-detail: #8b2635;
+  --color-a-band-bg: #2b1418;
+  --color-a-band-text: #f5ede4;
+  --color-a-accent: #c9a66b;
+
+  /* Palette — Option B: Foto com Painel de Vidro */
+  --color-b-panel-bg: rgba(255, 255, 255, 0.55);
+  --color-b-panel-border: rgba(201, 166, 107, 0.6);
+  --color-b-text: #5b2333;
+  --color-b-text-muted: #8c6672;
+  --color-b-accent-start: #c9a66b;
+  --color-b-accent-end: #d9a5a0;
+
+  /* Palette — Option C: Cartão Emoldurado */
+  --color-c-bg: #f7f1e8;
+  --color-c-card-bg: #ffffff;
+  --color-c-border: #c9a66b;
+  --color-c-text: #7a2e3a;
+  --color-c-text-muted: #9c8087;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body-a);
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
