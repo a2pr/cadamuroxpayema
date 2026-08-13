@@ -1,0 +1,14 @@
+:root {
+  --color-bg: #faf7f2;
+  --color-text: #2e2a26;
+  --color-text-muted: #8a8378;
+  --color-accent: #b69b6b;
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-body: 'Jost', 'Segoe UI', sans-serif;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+}
