@@ -38,10 +38,34 @@
 
 body {
   margin: 0;
-  font-family: var(--font-body-a);
+  font-family: var(--font-body-c);
+  background-color: var(--color-c-bg);
 }
 
 img {
   max-width: 100%;
   display: block;
+}
+
+.btn-outline-gold {
+  color: var(--color-c-border);
+  border: 1px solid var(--color-c-border);
+  background-color: transparent;
+  font-family: var(--font-body-c);
+}
+
+.btn-outline-gold:hover,
+.btn-outline-gold:focus {
+  color: var(--color-c-card-bg);
+  background-color: var(--color-c-border);
+  border-color: var(--color-c-border);
+}
+
+.footer-divider {
+  border-top-color: var(--color-c-border);
+}
+
+.footer-message {
+  font-family: var(--font-body-c);
+  color: var(--color-c-text-muted);
 }

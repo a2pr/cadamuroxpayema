@@ -72,3 +72,20 @@ export const invitation = {
 }
 ```
 Isso garante que trocar textos/links/valores/foto não exija tocar em nenhum componente — só o config.
+
+## Implementação
+
+**Componentes criados** (em `src/components/`):
+- `PageHeader.vue` — kicker ("Salve a data", hardcoded — não faz parte do config compartilhado) + título script (`invitation.heroTitle`)
+- `FramedPhotoCard.vue` — moldura branca (`var(--color-c-card-bg)`) com borda dourada fina e `rounded-3`, envolvendo o `CoupleFigureImage.vue` já existente
+- `EventDetails.vue` — nomes/data/frase em `EB Garamond` itálico
+- `PlatePriceToggleButton.vue` — `ref` local (`revealed`); ao clicar troca o próprio texto do botão pelo valor formatado via `formatPlatePrice`, sem modal/collapse
+- `LocationButton.vue` e `AppFooter.vue` reutilizados do scaffolding sem alteração, estilizados via fallthrough `class` (`btn-outline-gold`)
+
+**`App.vue`** compõe as peças acima dentro de um `container` com `max-width: 480px` (efeito "convite impresso"), fundo `var(--color-c-bg)` e os dois CTAs em `row row-cols-1 row-cols-md-2`.
+
+**`src/assets/main.css`** — adicionada a classe `.btn-outline-gold` (borda/texto dourado, preenche dourado no hover/focus) usada pelos dois botões, e overrides de `.footer-divider`/`.footer-message` para a paleta C (linha dourada em vez de `currentColor`); `body` passou a usar `--font-body-c` e `--color-c-bg` como padrão.
+
+**`index.html`** — link do Google Fonts reduzido às 3 famílias da Opção C (Great Vibes, EB Garamond, Nunito Sans).
+
+**Verificação**: `npm run type-check` sem erros; `npm run dev` + `playwright-cli` (mobile 390×844 e desktop 1280×900) — layout, tipografia e paleta conferem com o design; clique em "Valor do Prato" troca corretamente para "R$ 0,00 por pessoa"; console sem erros (só o warning pré-existente do vue-router por ausência de rotas, sem relação com esta mudança).
