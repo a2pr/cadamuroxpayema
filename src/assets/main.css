@@ -38,10 +38,45 @@
 
 body {
   margin: 0;
-  font-family: var(--font-body-a);
+  font-family: var(--font-body-b);
 }
 
 img {
   max-width: 100%;
   display: block;
+}
+
+/* Option B — pill buttons shared by LocationButton and PlatePriceCollapse */
+.btn-glass-primary,
+.btn-glass-outline {
+  padding: 0.55rem 1.25rem;
+  font-family: var(--font-body-b);
+  font-weight: 500;
+  font-size: 0.9rem;
+  line-height: 1.2;
+  transition: filter 0.2s ease, background-color 0.2s ease;
+}
+
+.btn-glass-primary {
+  background: linear-gradient(135deg, var(--color-b-accent-start), var(--color-b-accent-end));
+  color: #fff;
+  border: none;
+}
+
+.btn-glass-primary:hover,
+.btn-glass-primary:focus {
+  filter: brightness(1.05);
+  color: #fff;
+}
+
+.btn-glass-outline {
+  background: transparent;
+  border: 1px solid var(--color-b-panel-border);
+  color: var(--color-b-text);
+}
+
+.btn-glass-outline:hover,
+.btn-glass-outline:focus {
+  background: rgba(255, 255, 255, 0.35);
+  color: var(--color-b-text);
 }

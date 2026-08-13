@@ -72,3 +72,23 @@ export const invitation = {
 }
 ```
 Isso garante que trocar textos/links/valores/foto não exija tocar em nenhum componente — só o config.
+
+## Implementação (2026-08-13)
+
+Opção B foi escolhida e implementada em cima do [scaffolding compartilhado](scaffolding-2026-08-13.md).
+
+**Componentes criados** (`src/components/`):
+- `HeroPhoto.vue` — envolve `CoupleFigureImage` num container `100vh` com `object-fit: cover`; expõe um slot posicionado em `position: absolute; bottom: 5%` (centralizado, `max-width: 420px`) onde o `GlassPanel` é montado.
+- `GlassPanel.vue` — painel com `backdrop-filter: blur(16px) saturate(160%)`, fundo `var(--color-b-panel-bg)`, borda `var(--color-b-panel-border)` e `border-radius: 24px`. Props `kicker`/`names`/`date`/`message` mapeiam para o "SAVE THE DATE" (Parisienne, uppercase), nomes e data (Cormorant) e a frase do jantar (Cormorant itálico). Slot para os botões.
+- `PlatePriceCollapse.vue` — botão pílula (`btn-glass-outline`) com `data-bs-toggle="collapse"` que revela `{{ formatPlatePrice(price) }} por pessoa` num card translúcido dentro do próprio painel, empurrando o conteúdo abaixo suavemente (Bootstrap `collapse`, sem JS customizado).
+- `LocationButton.vue` e `AppFooter.vue` reaproveitados do scaffolding sem alteração de comportamento — só receberam classes de estilo via fallthrough attrs (`btn-glass-primary rounded-pill` e `option-b-footer`).
+
+**Estilos globais** (`src/assets/main.css`): classes `.btn-glass-primary` (gradiente `--color-b-accent-start` → `--color-b-accent-end`) e `.btn-glass-outline` (borda dourada translúcida), compartilhadas entre `LocationButton` e `PlatePriceCollapse`; `body` passou a usar `var(--font-body-b)` (Poppins).
+
+**`index.html`**: link do Google Fonts reduzido às 3 famílias da Opção B (Parisienne, Cormorant 400/600, Poppins 400/500), conforme a nota deixada no scaffolding.
+
+**`App.vue`**: compõe `HeroPhoto` → `GlassPanel` (com os dois botões lado a lado via `d-flex gap-2`) → `AppFooter`, todos alimentados por `invitation` (`src/config/invitation.ts`), sem valores hardcoded.
+
+**Verificação**:
+- `npm run type-check` — sem erros.
+- `npm run dev` + `playwright-cli` (390×844 mobile e 1280×900 desktop): painel de vidro renderiza sobre a foto com blur visível, textos legíveis, botões lado a lado; clique em "Valor do Prato" expande o collapse dentro do painel revelando "R$ 0,00 por pessoa"; rodapé "Com amor, Fulano & Fulana" aparece discreto abaixo da foto ao rolar. Console sem erros novos (só o warning pré-existente do vue-router, sem rotas cadastradas).
