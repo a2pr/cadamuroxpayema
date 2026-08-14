@@ -18,6 +18,7 @@ import AppFooter from '@/components/AppFooter.vue'
       <EventDetails
         :names="invitation.coupleNames"
         :date="invitation.weddingDate"
+        :civil-marriage-message="invitation.civilMarriageMessage"
         :message="invitation.dinnerMessage"
       />
 
@@ -31,9 +32,11 @@ import AppFooter from '@/components/AppFooter.vue'
         </div>
         <div class="col">
           <PlatePriceToggleButton
-            :price="invitation.platePrice"
+            :price-min="invitation.platePriceMin"
+            :price-max="invitation.platePriceMax"
             :label="invitation.plateButtonLabel"
-            class="w-100"
+            :more-info-url="invitation.moreInfoUrl"
+            :more-info-label="invitation.moreInfoLabel"
           />
         </div>
       </div>
