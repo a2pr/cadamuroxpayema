@@ -16,3 +16,7 @@ If implement then implementation result should be added into the file
 
 ## Browser interaction
 For any browser interaction use playwright-cli instead of claude-chrome plugin
+
+## Language for text
+design and plans should be in English 
+Text for user should be in Brazilian portuguese
