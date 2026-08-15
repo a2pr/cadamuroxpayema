@@ -2,6 +2,7 @@ export interface InvitationConfig {
   heroTitle: string
   coupleNames: string
   weddingDate: string
+  weddingTime: string
   civilMarriageMessage: string
   dinnerMessage: string
   couplePhoto: string
@@ -17,19 +18,20 @@ export interface InvitationConfig {
 
 export const invitation: InvitationConfig = {
   heroTitle: 'Save the date',
-  coupleNames: 'Fulano & Fulana',
-  weddingDate: '00 de Mês de 2026',
-  civilMarriageMessage: 'Venha celebrar conosco o nosso casamento civil',
-  dinnerMessage: 'Venha celebrar conosco em um jantar especial',
-  couplePhoto: '/images/photo1.jpeg',
-  googleMapsUrl: 'https://maps.google.com/?q=',
-  locationButtonLabel: 'Ver Localização',
-  platePriceMin: 0,
-  platePriceMax: 0,
+  coupleNames: 'Pilar & Andrés',
+  weddingDate: '04 de Setembro de 2026',
+  weddingTime: '19:00h',
+  civilMarriageMessage: 'Venha celebrar conosco o nosso casamento civil,',
+  dinnerMessage: 'com um jantar especial',
+  couplePhoto: '/images/cropped_photo.jpeg',
+  googleMapsUrl: 'https://maps.app.goo.gl/dXicuiEzw2TKg9fP6',
+  locationButtonLabel: 'Cantina do Délio Batel',
+  platePriceMin: 80,
+  platePriceMax: 140,
   plateButtonLabel: 'Valor do Prato',
-  moreInfoUrl: 'https://example.com',
+  moreInfoUrl: 'https://cantinadodeliov.cloudfy.net.br/home',
   moreInfoLabel: 'Ver Cardápio',
-  footerMessage: 'Com amor, Fulano & Fulana',
+  footerMessage: 'Com amor, Pilar & Andrés',
 }
 
 function formatCurrency(value: number): string {

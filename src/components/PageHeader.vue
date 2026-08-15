@@ -1,13 +1,11 @@
 <script setup lang="ts">
 defineProps<{
-  kicker: string
   title: string
 }>()
 </script>
 
 <template>
   <header class="text-center">
-    <p class="kicker mb-1">{{ kicker }}</p>
     <h1 class="hero-title mb-0">{{ title }}</h1>
   </header>
 </template>

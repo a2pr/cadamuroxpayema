@@ -11,13 +11,14 @@ import AppFooter from '@/components/AppFooter.vue'
 <template>
   <div class="invitation-page">
     <div class="invitation-container container py-5">
-      <PageHeader kicker="Salve a data" :title="invitation.heroTitle" class="mb-4" />
+      <PageHeader :title="invitation.heroTitle" class="mb-4" />
 
       <FramedPhotoCard :src="invitation.couplePhoto" alt="Foto do casal" class="mb-4" />
 
       <EventDetails
         :names="invitation.coupleNames"
         :date="invitation.weddingDate"
+        :time="invitation.weddingTime"
         :civil-marriage-message="invitation.civilMarriageMessage"
         :message="invitation.dinnerMessage"
       />

@@ -2,6 +2,7 @@
 defineProps<{
   names: string
   date: string
+  time: string
   civilMarriageMessage: string
   message: string
 }>()
@@ -10,9 +11,10 @@ defineProps<{
 <template>
   <div class="event-details text-center">
     <p class="names mb-2">{{ names }}</p>
-    <p class="date mb-2">{{ date }}</p>
+    <p class="date mb-2">Data: {{ date }}</p>
+    <p class="date mb-2">Horário: {{ time }}</p>
     <p class="civil-message mb-2">{{ civilMarriageMessage }}</p>
-    <p class="message mb-0">{{ message }}</p>
+    <p class="civil-message mb-2">{{ message }}</p>
   </div>
 </template>
 
