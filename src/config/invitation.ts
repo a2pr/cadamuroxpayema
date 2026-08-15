@@ -2,31 +2,45 @@ export interface InvitationConfig {
   heroTitle: string
   coupleNames: string
   weddingDate: string
+  weddingTime: string
+  civilMarriageMessage: string
   dinnerMessage: string
   couplePhoto: string
   googleMapsUrl: string
   locationButtonLabel: string
-  platePrice: number
+  platePriceMin: number
+  platePriceMax: number
   plateButtonLabel: string
+  moreInfoUrl: string
+  moreInfoLabel: string
   footerMessage: string
 }
 
 export const invitation: InvitationConfig = {
   heroTitle: 'Save the date',
-  coupleNames: 'Fulano & Fulana',
-  weddingDate: '00 de Mês de 2026',
-  dinnerMessage: 'Venha celebrar conosco em um jantar especial',
-  couplePhoto: '/images/couple-placeholder.svg',
-  googleMapsUrl: 'https://maps.google.com/?q=',
-  locationButtonLabel: 'Ver Localização',
-  platePrice: 0,
+  coupleNames: 'Pilar & Andrés',
+  weddingDate: '04 de Setembro de 2026',
+  weddingTime: '19:00h',
+  civilMarriageMessage: 'Venha celebrar conosco o nosso casamento civil,',
+  dinnerMessage: 'com um jantar especial',
+  couplePhoto: '/images/cropped_photo.jpeg',
+  googleMapsUrl: 'https://maps.app.goo.gl/dXicuiEzw2TKg9fP6',
+  locationButtonLabel: 'Cantina do Délio Batel',
+  platePriceMin: 80,
+  platePriceMax: 140,
   plateButtonLabel: 'Valor do Prato',
-  footerMessage: 'Com amor, Fulano & Fulana',
+  moreInfoUrl: 'https://cantinadodeliov.cloudfy.net.br/home',
+  moreInfoLabel: 'Ver Cardápio',
+  footerMessage: 'Com amor, Pilar & Andrés',
 }
 
-export function formatPlatePrice(value: number): string {
+function formatCurrency(value: number): string {
   return value.toLocaleString('pt-BR', {
     style: 'currency',
     currency: 'BRL',
   })
+}
+
+export function formatPlatePriceRange(min: number, max: number): string {
+  return `${formatCurrency(min)} – ${formatCurrency(max)} por pessoa`
 }

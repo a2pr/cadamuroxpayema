@@ -72,3 +72,49 @@ export const invitation = {
 }
 ```
 Isso garante que trocar textos/links/valores/foto não exija tocar em nenhum componente — só o config.
+
+## Implementação
+
+**Componentes criados** (em `src/components/`):
+- `PageHeader.vue` — kicker ("Salve a data", hardcoded — não faz parte do config compartilhado) + título script (`invitation.heroTitle`)
+- `FramedPhotoCard.vue` — moldura branca (`var(--color-c-card-bg)`) com borda dourada fina e `rounded-3`, envolvendo o `CoupleFigureImage.vue` já existente
+- `EventDetails.vue` — nomes/data/frase em `EB Garamond` itálico
+- `PlatePriceToggleButton.vue` — `ref` local (`revealed`); ao clicar troca o próprio texto do botão pelo valor formatado via `formatPlatePrice`, sem modal/collapse
+- `LocationButton.vue` e `AppFooter.vue` reutilizados do scaffolding sem alteração, estilizados via fallthrough `class` (`btn-outline-gold`)
+
+**`App.vue`** compõe as peças acima dentro de um `container` com `max-width: 480px` (efeito "convite impresso"), fundo `var(--color-c-bg)` e os dois CTAs em `row row-cols-1 row-cols-md-2`.
+
+**`src/assets/main.css`** — adicionada a classe `.btn-outline-gold` (borda/texto dourado, preenche dourado no hover/focus) usada pelos dois botões, e overrides de `.footer-divider`/`.footer-message` para a paleta C (linha dourada em vez de `currentColor`); `body` passou a usar `--font-body-c` e `--color-c-bg` como padrão.
+
+**`index.html`** — link do Google Fonts reduzido às 3 famílias da Opção C (Great Vibes, EB Garamond, Nunito Sans).
+
+**Verificação**: `npm run type-check` sem erros; `npm run dev` + `playwright-cli` (mobile 390×844 e desktop 1280×900) — layout, tipografia e paleta conferem com o design; clique em "Valor do Prato" troca corretamente para "R$ 0,00 por pessoa"; console sem erros (só o warning pré-existente do vue-router por ausência de rotas, sem relação com esta mudança).
+
+## Atualização — feedback da cliente (2026-08-14)
+
+A cliente confirmou a Opção C e pediu 4 ajustes:
+
+1. **Frase do casamento civil**: novo campo `civilMarriageMessage` no config, exibido como nova linha em `EventDetails.vue` (entre a data e a frase do jantar), em `EB Garamond` itálico, negrito, na cor de texto principal (`--color-c-text`) para se destacar da frase secundária do jantar.
+2. **Fontes maiores**: `.names` (1.5rem→1.75rem), `.date`/`.message` (~1rem→1.15–1.25rem) em `EventDetails.vue`; `.kicker` (0.75rem→0.9rem) e `.hero-title` (3.5rem→3.75rem) em `PageHeader.vue`.
+3. **Faixa de valor do prato**: `platePrice: number` foi substituído por `platePriceMin`/`platePriceMax` no config; `formatPlatePrice` virou `formatPlatePriceRange(min, max)`, retornando `R$ 000,00 – R$ 000,00 por pessoa`.
+4. **Link "Mais informações"**: novos campos `moreInfoUrl`/`moreInfoLabel` no config. `PlatePriceToggleButton.vue` passou a renderizar, junto do botão de preço, um `<a target="_blank" rel="noopener">` que só aparece (`v-if="revealed"`, com transição fade/slide) depois que a pessoa clica em "Valor do Prato" — reaproveitando o mesmo estado local `revealed` que já existia, sem subir estado para `App.vue`.
+
+**Componentes alterados**: `src/config/invitation.ts`, `src/components/EventDetails.vue`, `src/components/PageHeader.vue`, `src/components/PlatePriceToggleButton.vue`, `src/App.vue`.
+
+**Verificação**: `npm run type-check` sem erros; `npm run dev` + `playwright-cli` em mobile (390×844) e desktop (1280×900) — frase do casamento civil aparece corretamente entre data e frase do jantar; fontes maiores não quebram o layout mobile; clique em "Valor do Prato" revela a faixa formatada (`R$ 0,00 – R$ 0,00 por pessoa`) e o botão "Mais informações" abaixo; `href`/`target`/`rel` do link conferidos via DOM (`https://example.com`, `_blank`, `noopener`); console sem novos erros (só o warning pré-existente do vue-router).
+
+### Ajuste — botão de faixa de valor agora é toggle (2026-08-14)
+
+O botão "Valor do Prato" passou de revelação única para **toggle**: `reveal()` virou `toggle()` (`revealed.value = !revealed.value`), então clicar de novo no botão (já mostrando a faixa) volta ao label original — e o botão "Mais informações" some junto, com a mesma transição fade/slide agora também na saída (`fade-slide-leave-active`/`fade-slide-leave-to`).
+
+**Verificação**: `npm run type-check` sem erros; `playwright-cli` em mobile (390×844) — 1º clique revela `R$ 0,00 – R$ 0,00 por pessoa` + "Mais informações"; 2º clique no mesmo botão volta para "Valor do Prato" e esconde "Mais informações"; console sem novos erros.
+
+### Ajuste — dados reais do casal (2026-08-15)
+
+Config preenchido com as informações reais (`src/config/invitation.ts`): nomes "Pilar & Andrés", data "04 de Setembro de 2026", novo campo `weddingTime: '19:00h'` exibido em `EventDetails.vue` (linha própria "Horário:", abaixo de "Data:"), foto (`cropped_photo.jpeg`), local "Cantina do Délio Batel" com link real do Google Maps, faixa de preço R$ 80–140, e link real do cardápio da cantina como "Ver Cardápio". O kicker ("Salve a data") foi removido de `PageHeader.vue` — não fazia parte do config compartilhado e ficou redundante ao lado do título "Save the date" com data/hora explícitas logo abaixo.
+
+Limpeza: removida a classe CSS `.kicker` (órfã após a remoção do prop) de `PageHeader.vue`, e a classe `.message` (órfã desde que `dinnerMessage` passou a reaproveitar a classe `.civil-message` — decisão mantida porque a frase civil termina em vírgula e continua na frase do jantar, formando uma única sentença visual).
+
+**Verificação**: `npm run type-check` sem erros; `playwright-cli` (device "iPhone 13") — hero, foto, nomes/data/horário, frase civil+jantar como sentença contínua, botão "Cantina do Délio Batel" e toggle "Valor do Prato" (revela `R$ 80,00 – R$ 140,00 por pessoa` + "Ver Cardápio") conferidos visualmente; `href`/`target=_blank` dos dois links confirmados via DOM (`maps.app.goo.gl/dXicuiEzw2TKg9fP6`, `cantinadodeliov.cloudfy.net.br/home`); console sem erros novos (só o warning pré-existente do vue-router).
+
+Pendência não bloqueante: `public/images/photo1.jpeg` ficou órfão (substituído por `cropped_photo.jpeg` no config) — mantido no repo sem remoção automática.
