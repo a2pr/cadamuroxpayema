@@ -41,10 +41,4 @@ defineProps<{
   font-weight: 600;
   color: var(--color-c-text);
 }
-
-.message {
-  font-size: 1.15rem;
-  font-style: italic;
-  color: var(--color-c-text-muted);
-}
 </style>

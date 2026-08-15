@@ -11,14 +11,6 @@ defineProps<{
 </template>
 
 <style scoped>
-.kicker {
-  font-family: var(--font-body-c);
-  font-size: 0.9rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--color-c-text-muted);
-}
-
 .hero-title {
   font-family: var(--font-script-c);
   font-size: 3.75rem;

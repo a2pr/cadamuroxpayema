@@ -108,3 +108,13 @@ A cliente confirmou a Opção C e pediu 4 ajustes:
 O botão "Valor do Prato" passou de revelação única para **toggle**: `reveal()` virou `toggle()` (`revealed.value = !revealed.value`), então clicar de novo no botão (já mostrando a faixa) volta ao label original — e o botão "Mais informações" some junto, com a mesma transição fade/slide agora também na saída (`fade-slide-leave-active`/`fade-slide-leave-to`).
 
 **Verificação**: `npm run type-check` sem erros; `playwright-cli` em mobile (390×844) — 1º clique revela `R$ 0,00 – R$ 0,00 por pessoa` + "Mais informações"; 2º clique no mesmo botão volta para "Valor do Prato" e esconde "Mais informações"; console sem novos erros.
+
+### Ajuste — dados reais do casal (2026-08-15)
+
+Config preenchido com as informações reais (`src/config/invitation.ts`): nomes "Pilar & Andrés", data "04 de Setembro de 2026", novo campo `weddingTime: '19:00h'` exibido em `EventDetails.vue` (linha própria "Horário:", abaixo de "Data:"), foto (`cropped_photo.jpeg`), local "Cantina do Délio Batel" com link real do Google Maps, faixa de preço R$ 80–140, e link real do cardápio da cantina como "Ver Cardápio". O kicker ("Salve a data") foi removido de `PageHeader.vue` — não fazia parte do config compartilhado e ficou redundante ao lado do título "Save the date" com data/hora explícitas logo abaixo.
+
+Limpeza: removida a classe CSS `.kicker` (órfã após a remoção do prop) de `PageHeader.vue`, e a classe `.message` (órfã desde que `dinnerMessage` passou a reaproveitar a classe `.civil-message` — decisão mantida porque a frase civil termina em vírgula e continua na frase do jantar, formando uma única sentença visual).
+
+**Verificação**: `npm run type-check` sem erros; `playwright-cli` (device "iPhone 13") — hero, foto, nomes/data/horário, frase civil+jantar como sentença contínua, botão "Cantina do Délio Batel" e toggle "Valor do Prato" (revela `R$ 80,00 – R$ 140,00 por pessoa` + "Ver Cardápio") conferidos visualmente; `href`/`target=_blank` dos dois links confirmados via DOM (`maps.app.goo.gl/dXicuiEzw2TKg9fP6`, `cantinadodeliov.cloudfy.net.br/home`); console sem erros novos (só o warning pré-existente do vue-router).
+
+Pendência não bloqueante: `public/images/photo1.jpeg` ficou órfão (substituído por `cropped_photo.jpeg` no config) — mantido no repo sem remoção automática.
